@@ -3,7 +3,7 @@ package com.nauka;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        DBConnection dbConnection = new DBConnection(args);
     }
 
 }
