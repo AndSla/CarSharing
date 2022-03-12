@@ -11,57 +11,57 @@ public class DBConnection {
 
     public DBConnection(String[] args) {
         String dbName = getDbNameFromCmdLine(args);
-        String fullUrl = DB_URL + dbName;
-        String tableName = "company";
 
-        try {
-            Class.forName(JDBC_DRIVER);
-            try (Connection connection = DriverManager.getConnection(fullUrl);
-                 Statement statement = connection.createStatement()) {
-                connection.setAutoCommit(true);
+        if (dbName.equals("error")) {
+            System.out.println("Wrong arguments! Use -databaseFileName [db_file_name]");
+        } else {
 
-                if (!tableExists(connection, tableName)) {
-                    String sql = "CREATE TABLE " + tableName +
-                            "(id INTEGER NOT NULL, " +
-                            "name VARCHAR(255), " +
-                            "PRIMARY KEY (id))";
-                    statement.executeUpdate(sql);
+            String fullUrl = DB_URL + dbName;
+            String tableName = "company";
+
+            try {
+                Class.forName(JDBC_DRIVER);
+                try (Connection connection = DriverManager.getConnection(fullUrl);
+                     Statement statement = connection.createStatement()) {
+                    connection.setAutoCommit(true);
+
+                    if (!tableExists(connection, tableName)) {
+                        String sql = "CREATE TABLE " + tableName +
+                                "(id INTEGER NOT NULL, " +
+                                "name VARCHAR(255), " +
+                                "PRIMARY KEY (id))";
+                        statement.executeUpdate(sql);
+                    }
+
                 }
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
     }
 
     private boolean tableExists(Connection connection, String tableName) throws SQLException {
-        tableName = tableName.toUpperCase();
+        tableName = tableName.toUpperCase(); //implementation of getTables method uses uppercase names
         DatabaseMetaData databaseMetaData = connection.getMetaData();
 
-        try (ResultSet resultSet = databaseMetaData.getTables(null, null, null, new String[]{"TABLE"})) {
-            while (resultSet.next()) {
-                if (resultSet.getString("TABLE_NAME").equals(tableName)) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ResultSet resultSet = databaseMetaData.getTables(null, null, tableName, new String[]{"TABLE"});
 
-        return false;
+        return resultSet.next();
 
     }
 
     private String getDbNameFromCmdLine(String[] args) {
-        String cmdLineArgs = args.length == 2 ? args[0] + " " + args[1] : "error";
+        String cmdLineArgs;
         String arg1Name = "-databaseFileName";
 
-        if (cmdLineArgs.matches(arg1Name + "\\s+\\w+\\s*")) {
-            return args[1];
+        if (args.length == 2) {
+            cmdLineArgs = args[0] + " " + args[1];
+            if (cmdLineArgs.matches(arg1Name + "\\s+\\w+\\s*")) {
+                return args[1];
+            }
         }
 
-        return "-1";
+        return "error";
 
     }
 
