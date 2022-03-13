@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class UserInterface {
 
     private final Scanner sc = new Scanner(System.in);
-    private int menuItem;
+    private int menuLevel = 0;
     private int maxMenuItemNumber;
     private boolean running = true;
 
@@ -24,12 +24,23 @@ public class UserInterface {
         setMaxMenuItemNumber(2);
     }
 
-    void setMenuItemFromInput(int maxMenuItemNumber) {
+    void showMenu() {
+        switch (menuLevel) {
+            case 0:
+                showMainMenu();
+                break;
+            case 1:
+                showManagerMenu();
+        }
+    }
+
+    int getMenuItemFromInput(int maxMenuItemNumber) {
         while (true) {
             String chosenNumber = sc.nextLine();
             if (chosenNumber.matches("[0-" + maxMenuItemNumber + "]")) {
-                setMenuItem(Integer.parseInt(chosenNumber));
-                break;
+                System.out.println();
+                // you can only use one-digit numbers for menu items: 0-9
+                return menuLevel * 10 + Integer.parseInt(chosenNumber);
             } else {
                 System.out.print("> ");
             }
@@ -41,12 +52,8 @@ public class UserInterface {
         System.out.println("Bye!");
     }
 
-    public void setMenuItem(int menuItem) {
-        this.menuItem = menuItem;
-    }
-
-    public int getMenuItem() {
-        return menuItem;
+    public void setMenuLevel(int menuLevel) {
+        this.menuLevel = menuLevel;
     }
 
     public void setMaxMenuItemNumber(int maxMenuItemNumber) {

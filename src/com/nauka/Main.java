@@ -8,22 +8,30 @@ public class Main {
         int chosenMenuItem;
 
         while (ui.isRunning()) {
-            ui.showMainMenu();
-            ui.setMenuItemFromInput(ui.getMaxMenuItemNumber());
-            chosenMenuItem = ui.getMenuItem();
+            ui.showMenu();
+            chosenMenuItem = ui.getMenuItemFromInput(ui.getMaxMenuItemNumber());
 
             switch (chosenMenuItem) {
                 case 1:
-                    ui.showManagerMenu();
-                    ui.setMenuItemFromInput(ui.getMaxMenuItemNumber());
-                    chosenMenuItem = ui.getMenuItem();
-
+                    ui.setMenuLevel(1);
+                    break;
                 case 0:
                     ui.exit();
+                    break;
+                case 11:
+                    System.out.println("Showing company list");
+                    System.out.println();
+                    break;
+                case 12:
+                    System.out.println("Creating company");
+                    System.out.println();
+                    break;
+                case 10:
+                    ui.setMenuLevel(0);
+                    break;
             }
 
         }
-
 
     }
 
