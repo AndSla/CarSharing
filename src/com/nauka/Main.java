@@ -9,7 +9,7 @@ public class Main {
 
         while (ui.isRunning()) {
             ui.showMenu();
-            chosenMenuItem = ui.getMenuItemFromInput(ui.getMaxMenuItemNumber());
+            chosenMenuItem = ui.getMenuItemFromInput();
 
             switch (chosenMenuItem) {
                 case 1:

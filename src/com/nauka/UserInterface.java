@@ -34,7 +34,7 @@ public class UserInterface {
         }
     }
 
-    int getMenuItemFromInput(int maxMenuItemNumber) {
+    int getMenuItemFromInput() {
         while (true) {
             String chosenNumber = sc.nextLine();
             if (chosenNumber.matches("[0-" + maxMenuItemNumber + "]")) {
@@ -58,10 +58,6 @@ public class UserInterface {
 
     public void setMaxMenuItemNumber(int maxMenuItemNumber) {
         this.maxMenuItemNumber = maxMenuItemNumber;
-    }
-
-    public int getMaxMenuItemNumber() {
-        return maxMenuItemNumber;
     }
 
     public void setRunning(boolean running) {
