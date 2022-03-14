@@ -8,6 +8,7 @@ public class DBConnection {
     private static final String DB_URL = "jdbc:h2:./db/";
     private static final String USER = "u";
     private static final String PASS = "p";
+    private Connection connection;
 
     public DBConnection(String[] args) {
         String dbName = getDbNameFromCmdLine(args);
@@ -21,18 +22,23 @@ public class DBConnection {
 
             try {
                 Class.forName(JDBC_DRIVER);
-                try (Connection connection = DriverManager.getConnection(fullUrl);
-                     Statement statement = connection.createStatement()) {
+                try {
+                    Connection connection = DriverManager.getConnection(fullUrl);
+                    Statement statement = connection.createStatement();
                     connection.setAutoCommit(true);
 
                     if (!tableExists(connection, tableName)) {
                         String sql = "CREATE TABLE " + tableName +
-                                "(id INTEGER NOT NULL, " +
-                                "name VARCHAR(255), " +
+                                "(id INTEGER NOT NULL AUTO_INCREMENT, " +
+                                "name VARCHAR(255) UNIQUE NOT NULL, " +
                                 "PRIMARY KEY (id))";
                         statement.executeUpdate(sql);
                     }
 
+                    this.connection = connection;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -63,6 +69,10 @@ public class DBConnection {
 
         return "error";
 
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
 }

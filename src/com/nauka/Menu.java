@@ -5,7 +5,7 @@ import java.util.Map;
 public abstract class Menu {
 
     protected Map<Integer, Command> commands;
-    int maxMenuItemNumber;
+    protected int maxMenuItemNumber;
 
     abstract void showMenu();
 

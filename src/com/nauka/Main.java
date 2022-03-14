@@ -4,6 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         DBConnection dbConnection = new DBConnection(args);
+        CompanyDAO companyDAO = new CompanyDAOImpl(dbConnection.getConnection());
         UserInterface ui = new UserInterface();
         Command chosenMenuItem;
 
@@ -16,8 +17,7 @@ public class Main {
                     ui.setCurrentMenu(ui.getManagerMenu());
                     break;
                 case COMPANY_LIST:
-                    System.out.println("Showing company list");
-                    System.out.println();
+                    companyDAO.getAllCompanies();
                     break;
                 case CREATE_COMPANY:
                     System.out.println("Creating company");
