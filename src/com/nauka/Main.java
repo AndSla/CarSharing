@@ -5,29 +5,29 @@ public class Main {
     public static void main(String[] args) {
         DBConnection dbConnection = new DBConnection(args);
         UserInterface ui = new UserInterface();
-        int chosenMenuItem;
+        Command chosenMenuItem;
 
         while (ui.isRunning()) {
             ui.showMenu();
             chosenMenuItem = ui.getMenuItemFromInput();
 
             switch (chosenMenuItem) {
-                case 1:
-                    ui.setMenuLevel(1);
+                case LOGIN:
+                    ui.setCurrentMenu(ui.getManagerMenu());
                     break;
-                case 0:
-                    ui.exit();
-                    break;
-                case 11:
+                case COMPANY_LIST:
                     System.out.println("Showing company list");
                     System.out.println();
                     break;
-                case 12:
+                case CREATE_COMPANY:
                     System.out.println("Creating company");
                     System.out.println();
                     break;
-                case 10:
-                    ui.setMenuLevel(0);
+                case BACK:
+                    ui.setCurrentMenu(ui.getMainMenu());
+                    break;
+                case EXIT:
+                    ui.exit();
                     break;
             }
 
