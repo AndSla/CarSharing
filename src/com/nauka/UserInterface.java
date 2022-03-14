@@ -1,5 +1,6 @@
 package com.nauka;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -24,6 +25,33 @@ public class UserInterface {
                 System.out.print("> ");
             }
         }
+    }
+
+    void showCompanyList(List<Company> companies) {
+        if (!companies.isEmpty()) {
+            System.out.println("Company list:");
+            companies.forEach(System.out::println);
+        } else {
+            System.out.println("The company list is empty!");
+        }
+        System.out.println();
+    }
+
+    Company getCompanyFromInput() {
+        System.out.println("Enter the company name:");
+        System.out.print("> ");
+
+        while (true) {
+            String name = sc.nextLine();
+            if (name.matches(".+")) {
+                Company company = new Company();
+                company.setName(name);
+                return company;
+            } else {
+                System.out.print("> ");
+            }
+        }
+
     }
 
     void exit() {

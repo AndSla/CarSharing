@@ -17,11 +17,10 @@ public class Main {
                     ui.setCurrentMenu(ui.getManagerMenu());
                     break;
                 case COMPANY_LIST:
-                    companyDAO.getAllCompanies();
+                    ui.showCompanyList(companyDAO.getAllCompanies());
                     break;
                 case CREATE_COMPANY:
-                    System.out.println("Creating company");
-                    System.out.println();
+                    companyDAO.addCompany(ui.getCompanyFromInput());
                     break;
                 case BACK:
                     ui.setCurrentMenu(ui.getMainMenu());
