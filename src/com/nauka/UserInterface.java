@@ -1,5 +1,6 @@
 package com.nauka;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,9 +29,11 @@ public class UserInterface {
     }
 
     void showCompanyList(List<Company> companies) {
+        Comparator<Company> byId = Comparator.comparingInt(Company::getId);
+
         if (!companies.isEmpty()) {
             System.out.println("Company list:");
-            companies.forEach(System.out::println);
+            companies.stream().sorted(byId).forEach(System.out::println);
         } else {
             System.out.println("The company list is empty!");
         }
