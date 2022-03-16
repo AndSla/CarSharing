@@ -18,7 +18,8 @@ public class DBConnection {
         } else {
 
             String fullUrl = DB_URL + dbName;
-            String tableName = "company";
+            String companyTableName = "company";
+            String carTableName = "car";
 
             try {
                 Class.forName(JDBC_DRIVER);
@@ -27,11 +28,22 @@ public class DBConnection {
                     Statement statement = connection.createStatement();
                     connection.setAutoCommit(true);
 
-                    if (!tableExists(connection, tableName)) {
-                        String sql = "CREATE TABLE " + tableName +
+                    if (tableNotExist(connection, companyTableName)) {
+                        String sql = "CREATE TABLE " + companyTableName +
                                 "(id INTEGER NOT NULL AUTO_INCREMENT, " +
                                 "name VARCHAR(255) UNIQUE NOT NULL, " +
                                 "PRIMARY KEY (id))";
+                        statement.executeUpdate(sql);
+                    }
+
+                    if (tableNotExist(connection, carTableName)) {
+                        String sql = "CREATE TABLE " + carTableName +
+                                "(id INTEGER NOT NULL AUTO_INCREMENT, " +
+                                "name VARCHAR(255) UNIQUE NOT NULL, " +
+                                "company_id INTEGER NOT NULL, " +
+                                "PRIMARY KEY (id), " +
+                                "CONSTRAINT fk_company FOREIGN KEY (company_id) " +
+                                "REFERENCES company(id))";
                         statement.executeUpdate(sql);
                     }
 
@@ -46,13 +58,13 @@ public class DBConnection {
         }
     }
 
-    private boolean tableExists(Connection connection, String tableName) throws SQLException {
+    private boolean tableNotExist(Connection connection, String tableName) throws SQLException {
         tableName = tableName.toUpperCase(); //implementation of getTables method uses uppercase names
         DatabaseMetaData databaseMetaData = connection.getMetaData();
 
         ResultSet resultSet = databaseMetaData.getTables(null, null, tableName, new String[]{"TABLE"});
 
-        return resultSet.next();
+        return !resultSet.next();
 
     }
 
