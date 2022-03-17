@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         DBConnection dbConnection = new DBConnection(args);
         CompanyDAO companyDAO = new CompanyDAOImpl(dbConnection.getConnection());
+        CarDAO carDAO = new CarDAOImpl(dbConnection.getConnection());
         UserInterface ui = new UserInterface();
         Command chosenMenuItem;
 
@@ -26,8 +27,18 @@ public class Main {
                     break;
                 case COMPANY_MENU:
                     Company company = companyDAO.getCompanyById(ui.getCurrentCompanyId());
-                    ui.setCurrentCompany(company);
-                    ui.setCurrentMenu(ui.getCompanyMenu());
+                    if (company != null) {
+                        ui.setCurrentCompany(company);
+                        ui.setCurrentMenu(ui.getCompanyMenu());
+                    } else {
+                        ui.setCurrentMenu(ui.getCompanyListMenu());
+                    }
+                    break;
+                case CREATE_CAR:
+                    carDAO.addCar(ui.getCarFromInput());
+                    break;
+                case CAR_LIST:
+                    ui.showCarList(carDAO.getAllCompanyCars(ui.getCurrentCompanyId()));
                     break;
                 case BACK_TO_MAIN_MENU:
                     ui.setCurrentMenu(ui.getMainMenu());

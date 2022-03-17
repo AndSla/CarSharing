@@ -1,7 +1,9 @@
 package com.nauka;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserInterface {
 
@@ -20,10 +22,15 @@ public class UserInterface {
 
     Command getMenuItemFromInput() {
         while (true) {
-            String chosenNumber = sc.nextLine();
 
             if (currentMenu instanceof CompanyListMenu) {
 
+                CompanyListMenu clm = (CompanyListMenu) currentMenu;
+                if (clm.getCompanies().isEmpty()) {
+                    return Command.BACK_TO_MANAGER_MENU;
+                }
+
+                String chosenNumber = sc.nextLine();
                 if (chosenNumber.matches("\\d")) {
                     currentCompanyId = Integer.parseInt(chosenNumber);
                     System.out.println();
@@ -32,6 +39,7 @@ public class UserInterface {
 
             } else {
 
+                String chosenNumber = sc.nextLine();
                 if (chosenNumber.matches("[0-" + currentMenu.getMaxMenuItemNumber() + "]")) {
                     System.out.println();
                     return currentMenu.getCommands().get(Integer.parseInt(chosenNumber));
@@ -58,6 +66,42 @@ public class UserInterface {
                 System.out.print("> ");
             }
         }
+
+    }
+
+    Car getCarFromInput() {
+        System.out.println("Enter the car name:");
+        System.out.print("> ");
+
+        while (true) {
+            String name = sc.nextLine();
+            if (name.matches(".+")) {
+                Car car = new Car();
+                car.setName(name);
+                car.setCompanyId(currentCompanyId);
+                return car;
+            } else {
+                System.out.print("> ");
+            }
+        }
+
+    }
+
+    void showCarList(List<Car> cars) {
+        Comparator<Car> byId = Comparator.comparingInt(Car::getId);
+
+        if (!cars.isEmpty()) {
+            System.out.println("Car list:");
+            AtomicInteger i = new AtomicInteger();
+            cars.stream().sorted(byId).forEach(e -> {
+                System.out.print(i.incrementAndGet() + ". ");
+                System.out.println(e.getName());
+            });
+        } else {
+            System.out.println("The car list is empty!");
+        }
+
+        System.out.println();
 
     }
 
