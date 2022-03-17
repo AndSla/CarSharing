@@ -52,4 +52,26 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     }
 
+    @Override
+    public Company getCompanyById(int id) {
+
+        try (Statement statement = dbConnection.createStatement()) {
+            String sql = "SELECT * FROM company WHERE id=" + id + ";";
+            statement.execute(sql);
+            ResultSet result = statement.getResultSet();
+
+            if (result.next()) {
+                Company company = new Company();
+                company.setId(Integer.parseInt(result.getString("id")));
+                company.setName(result.getString("name"));
+                return company;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

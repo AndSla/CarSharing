@@ -14,7 +14,7 @@ public class ManagerMenu extends Menu {
         Map<Integer, Command> commands = new HashMap<>();
         commands.put(1, Command.COMPANY_LIST);
         commands.put(2, Command.CREATE_COMPANY);
-        commands.put(0, Command.BACK);
+        commands.put(0, Command.BACK_TO_MAIN_MENU);
         return commands;
     }
 

@@ -14,15 +14,22 @@ public class Main {
 
             switch (chosenMenuItem) {
                 case LOGIN:
+                case BACK_TO_MANAGER_MENU:
                     ui.setCurrentMenu(ui.getManagerMenu());
                     break;
                 case COMPANY_LIST:
-                    ui.showCompanyList(companyDAO.getAllCompanies());
+                    ui.setCompanyList(companyDAO.getAllCompanies());
+                    ui.setCurrentMenu(ui.getCompanyListMenu());
                     break;
                 case CREATE_COMPANY:
                     companyDAO.addCompany(ui.getCompanyFromInput());
                     break;
-                case BACK:
+                case COMPANY_MENU:
+                    Company company = companyDAO.getCompanyById(ui.getCurrentCompanyId());
+                    ui.setCurrentCompany(company);
+                    ui.setCurrentMenu(ui.getCompanyMenu());
+                    break;
+                case BACK_TO_MAIN_MENU:
                     ui.setCurrentMenu(ui.getMainMenu());
                     break;
                 case EXIT:

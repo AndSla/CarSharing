@@ -4,8 +4,10 @@ import java.util.List;
 
 public interface CompanyDAO {
 
-    public void addCompany(Company company);
+    void addCompany(Company company);
 
-    public List<Company> getAllCompanies();
+    List<Company> getAllCompanies();
+
+    Company getCompanyById(int id);
 
 }

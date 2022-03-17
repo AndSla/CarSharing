@@ -1,6 +1,5 @@
 package com.nauka;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +8,10 @@ public class UserInterface {
     private final Scanner sc = new Scanner(System.in);
     private final Menu mainMenu = new MainMenu();
     private final Menu managerMenu = new ManagerMenu();
+    private final Menu companyListMenu = new CompanyListMenu();
+    private final Menu companyMenu = new CompanyMenu();
     private Menu currentMenu = mainMenu;
+    private int currentCompanyId;
     private boolean running = true;
 
     void showMenu() {
@@ -19,25 +21,27 @@ public class UserInterface {
     Command getMenuItemFromInput() {
         while (true) {
             String chosenNumber = sc.nextLine();
-            if (chosenNumber.matches("[0-" + currentMenu.getMaxMenuItemNumber() + "]")) {
-                System.out.println();
-                return currentMenu.getCommands().get(Integer.parseInt(chosenNumber));
+
+            if (currentMenu instanceof CompanyListMenu) {
+
+                if (chosenNumber.matches("\\d")) {
+                    currentCompanyId = Integer.parseInt(chosenNumber);
+                    System.out.println();
+                    return Command.COMPANY_MENU;
+                }
+
             } else {
-                System.out.print("> ");
+
+                if (chosenNumber.matches("[0-" + currentMenu.getMaxMenuItemNumber() + "]")) {
+                    System.out.println();
+                    return currentMenu.getCommands().get(Integer.parseInt(chosenNumber));
+                }
+
             }
-        }
-    }
 
-    void showCompanyList(List<Company> companies) {
-        Comparator<Company> byId = Comparator.comparingInt(Company::getId);
+            System.out.print("> ");
 
-        if (!companies.isEmpty()) {
-            System.out.println("Company list:");
-            companies.stream().sorted(byId).forEach(System.out::println);
-        } else {
-            System.out.println("The company list is empty!");
         }
-        System.out.println();
     }
 
     Company getCompanyFromInput() {
@@ -72,6 +76,28 @@ public class UserInterface {
 
     public Menu getManagerMenu() {
         return managerMenu;
+    }
+
+    public Menu getCompanyListMenu() {
+        return companyListMenu;
+    }
+
+    public Menu getCompanyMenu() {
+        return companyMenu;
+    }
+
+    public int getCurrentCompanyId() {
+        return currentCompanyId;
+    }
+
+    public void setCompanyList(List<Company> companies) {
+        CompanyListMenu companyListMenu = (CompanyListMenu) getCompanyListMenu();
+        companyListMenu.setCompanies(companies);
+    }
+
+    public void setCurrentCompany(Company company) {
+        CompanyMenu companyMenu = (CompanyMenu) getCompanyMenu();
+        companyMenu.setCompanyName(company.getName());
     }
 
     public void setRunning(boolean running) {
