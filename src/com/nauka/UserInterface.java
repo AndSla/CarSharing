@@ -3,15 +3,15 @@ package com.nauka;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class UserInterface {
 
     private final Scanner sc = new Scanner(System.in);
     private final Menu mainMenu = new MainMenu();
     private final Menu managerMenu = new ManagerMenu();
-    private final Menu companyListMenu = new CompanyListMenu();
     private final Menu companyMenu = new CompanyMenu();
+    private final Menu companyListMenu = new CompanyListMenu();
     private Menu currentMenu = mainMenu;
     private int currentCompanyId;
     private boolean running = true;
@@ -37,7 +37,8 @@ public class UserInterface {
                     return Command.BACK_TO_MANAGER_MENU;
                 }
                 if (chosenNumber.matches("\\d")) {
-                    currentCompanyId = Integer.parseInt(chosenNumber);
+                    int listIndex = Integer.parseInt(chosenNumber) - 1;
+                    currentCompanyId = clm.getCompanies().get(listIndex).getId();
                     System.out.println();
                     return Command.COMPANY_MENU;
                 }
@@ -97,11 +98,10 @@ public class UserInterface {
 
         if (!cars.isEmpty()) {
             System.out.println("Car list:");
-            AtomicInteger i = new AtomicInteger();
-            cars.stream().sorted(byId).forEach(e -> {
-                System.out.print(i.incrementAndGet() + ". ");
-                System.out.println(e.getName());
-            });
+            cars = cars.stream().sorted(byId).collect(Collectors.toList());
+            for (int i = 0; i < cars.size(); i++) {
+                System.out.println(i + 1 + ". " + cars.get(i));
+            }
         } else {
             System.out.println("The car list is empty!");
         }

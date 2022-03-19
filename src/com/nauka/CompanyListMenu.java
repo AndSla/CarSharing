@@ -1,13 +1,26 @@
 package com.nauka;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CompanyListMenu extends Menu {
 
     private List<Company> companies;
+
+    public CompanyListMenu() {
+    }
+
+    public CompanyListMenu(List<Company> companies) {
+        this.companies = companies;
+        setMaxMenuItemNumber(companies.size());
+        setCommands(mapCommands());
+    }
+
+    private Map<Integer, Command> mapCommands() {
+        Map<Integer, Command> commands = new HashMap<>();
+        commands.put(0, Command.EXIT);
+        return commands;
+    }
 
     @Override
     void showMenu() {
@@ -15,7 +28,10 @@ public class CompanyListMenu extends Menu {
 
         if (!companies.isEmpty()) {
             System.out.println("Choose a company:");
-            companies.stream().sorted(byId).forEach(System.out::println);
+            setCompanies(companies.stream().sorted(byId).collect(Collectors.toList()));
+            for (int i = 0; i < companies.size(); i++) {
+                System.out.println(i + 1 + ". " + companies.get(i));
+            }
             System.out.println("0. Back");
             System.out.print("> ");
         } else {
