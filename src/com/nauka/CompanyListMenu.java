@@ -7,23 +7,20 @@ public class CompanyListMenu extends Menu {
 
     private List<Company> companies;
 
-    public CompanyListMenu() {
-    }
-
-    public CompanyListMenu(List<Company> companies) {
-        this.companies = companies;
-        setMaxMenuItemNumber(companies.size());
-        setCommands(mapCommands());
-    }
-
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
-        commands.put(0, Command.EXIT);
+        commands.put(0, Command.BACK_TO_MANAGER_MENU);
+        for (int i = 0; i < companies.size(); i++) {
+            commands.put(i + 1, Command.COMPANY_MENU);
+        }
         return commands;
     }
 
     @Override
     void showMenu() {
+        setMaxMenuItemNumber(companies.size());
+        setCommands(mapCommands());
+
         Comparator<Company> byId = Comparator.comparingInt(Company::getId);
 
         if (!companies.isEmpty()) {

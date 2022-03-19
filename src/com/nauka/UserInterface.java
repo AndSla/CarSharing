@@ -23,34 +23,18 @@ public class UserInterface {
     Command getMenuItemFromInput() {
         while (true) {
 
-            if (currentMenu instanceof CompanyListMenu) {
+            String chosenNumber = sc.nextLine();
+            if (chosenNumber.matches("[0-" + currentMenu.getMaxMenuItemNumber() + "]")) {
 
-                CompanyListMenu clm = (CompanyListMenu) currentMenu;
-                if (clm.getCompanies().isEmpty()) {
-                    System.out.println();
-                    return Command.BACK_TO_MANAGER_MENU;
-                }
+                System.out.println();
 
-                String chosenNumber = sc.nextLine();
-                if (chosenNumber.matches("0")) {
-                    System.out.println();
-                    return Command.BACK_TO_MANAGER_MENU;
-                }
-                if (chosenNumber.matches("\\d")) {
+                if (currentMenu instanceof CompanyListMenu && !chosenNumber.equals("0")) {
+                    CompanyListMenu clm = (CompanyListMenu) currentMenu;
                     int listIndex = Integer.parseInt(chosenNumber) - 1;
                     currentCompanyId = clm.getCompanies().get(listIndex).getId();
-                    System.out.println();
-                    return Command.COMPANY_MENU;
                 }
 
-            } else {
-
-                String chosenNumber = sc.nextLine();
-                if (chosenNumber.matches("[0-" + currentMenu.getMaxMenuItemNumber() + "]")) {
-                    System.out.println();
-                    return currentMenu.getCommands().get(Integer.parseInt(chosenNumber));
-                }
-
+                return currentMenu.getCommands().get(Integer.parseInt(chosenNumber));
             }
 
             System.out.print("> ");

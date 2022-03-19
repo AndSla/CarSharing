@@ -29,10 +29,6 @@ public class CompanyMenu extends Menu {
         System.out.print("> ");
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
