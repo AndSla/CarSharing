@@ -1,7 +1,9 @@
 package com.nauka;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CompanyListMenu extends Menu {
 
@@ -14,6 +16,7 @@ public class CompanyListMenu extends Menu {
         if (!companies.isEmpty()) {
             System.out.println("Choose a company:");
             companies.stream().sorted(byId).forEach(System.out::println);
+            System.out.println("0. Back");
             System.out.print("> ");
         } else {
             System.out.println("The company list is empty!");
