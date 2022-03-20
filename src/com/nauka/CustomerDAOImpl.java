@@ -39,7 +39,15 @@ public class CustomerDAOImpl implements CustomerDAO {
                 Customer customer = new Customer();
                 customer.setId(Integer.parseInt(result.getString("id")));
                 customer.setName(result.getString("name"));
-                customer.setRentedCarId(Integer.parseInt(result.getString("rented_car_id")));
+
+                Integer rentedCarId;
+                if (result.getString("rented_car_id") != null) {
+                    rentedCarId = Integer.parseInt(result.getString("rented_car_id"));
+                } else {
+                    rentedCarId = null;
+                }
+
+                customer.setRentedCarId(rentedCarId);
                 customers.add(customer);
             }
 
@@ -48,6 +56,36 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
 
         return customers;
+    }
+
+    @Override
+    public Customer getCustomerById(int id) {
+        try (Statement statement = dbConnection.createStatement()) {
+            String sql = "SELECT * FROM customer WHERE id=" + id + ";";
+            statement.execute(sql);
+            ResultSet result = statement.getResultSet();
+
+            if (result.next()) {
+                Customer customer = new Customer();
+                customer.setId(Integer.parseInt(result.getString("id")));
+                customer.setName(result.getString("name"));
+
+                Integer rentedCarId;
+                if (result.getString("rented_car_id") != null) {
+                    rentedCarId = Integer.parseInt(result.getString("rented_car_id"));
+                } else {
+                    rentedCarId = null;
+                }
+
+                customer.setRentedCarId(rentedCarId);
+                return customer;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

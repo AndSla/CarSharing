@@ -19,6 +19,18 @@ public class Main {
                 case BACK_TO_MANAGER_MENU:
                     ui.setCurrentMenu(ui.getManagerMenu());
                     break;
+                case LOGIN_AS_CUSTOMER:
+                    ui.setCustomerList(customerDAO.getAllCustomers());
+                    ui.setCurrentMenu(ui.getCustomerListMenu());
+                    break;
+                case CUSTOMER_MENU:
+                    Customer customer = customerDAO.getCustomerById(ui.getCurrentCustomerId());
+                    if (customer != null) {
+                        ui.setCurrentMenu(ui.getCustomerMenu());
+                    } else {
+                        ui.setCurrentMenu(ui.getCustomerListMenu());
+                    }
+                    break;
                 case COMPANY_LIST:
                     ui.setCompanyList(companyDAO.getAllCompanies());
                     ui.setCurrentMenu(ui.getCompanyListMenu());

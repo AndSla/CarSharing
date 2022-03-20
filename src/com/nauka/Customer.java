@@ -3,7 +3,7 @@ package com.nauka;
 public class Customer {
     private int id;
     private String name;
-    private int rentedCarId;
+    private Integer rentedCarId;
 
     public Customer() {
     }
@@ -24,12 +24,17 @@ public class Customer {
         this.name = name;
     }
 
-    public int getRentedCarId() {
+    public Integer getRentedCarId() {
         return rentedCarId;
     }
 
-    public void setRentedCarId(int rentedCarId) {
+    public void setRentedCarId(Integer rentedCarId) {
         this.rentedCarId = rentedCarId;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
 }
