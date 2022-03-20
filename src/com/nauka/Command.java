@@ -1,12 +1,16 @@
 package com.nauka;
 
 public enum Command {
-    LOGIN,
+    LOGIN_AS_MANAGER,
+    LOGIN_AS_CUSTOMER,
     COMPANY_LIST,
     CREATE_COMPANY,
     COMPANY_MENU,
     CAR_LIST,
     CREATE_CAR,
+    CUSTOMER_LIST,
+    CREATE_CUSTOMER,
+    CUSTOMER_MENU,
     BACK_TO_MAIN_MENU,
     BACK_TO_MANAGER_MENU,
     EXIT

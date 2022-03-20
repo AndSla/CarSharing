@@ -23,6 +23,11 @@ public class UserInterface {
     Command getMenuItemFromInput() {
         while (true) {
 
+            if (currentMenu instanceof CompanyListMenu) {
+                CompanyListMenu clm = (CompanyListMenu) currentMenu;
+                if (clm.getCompanies().isEmpty()) return Command.BACK_TO_MANAGER_MENU;
+            }
+
             String chosenNumber = sc.nextLine();
             if (chosenNumber.matches("[0-" + currentMenu.getMaxMenuItemNumber() + "]")) {
 
@@ -75,6 +80,22 @@ public class UserInterface {
             }
         }
 
+    }
+
+    Customer getCustomerFromInput(){
+        System.out.println("Enter the customer name:");
+        System.out.print("> ");
+
+        while (true) {
+            String name = sc.nextLine();
+            if (name.matches(".+")) {
+                Customer customer = new Customer();
+                customer.setName(name);
+                return customer;
+            } else {
+                System.out.print("> ");
+            }
+        }
     }
 
     void showCarList(List<Car> cars) {

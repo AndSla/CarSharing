@@ -20,6 +20,7 @@ public class DBConnection {
             String fullUrl = DB_URL + dbName;
             String companyTableName = "company";
             String carTableName = "car";
+            String customerTableName = "customer";
 
             try {
                 Class.forName(JDBC_DRIVER);
@@ -44,6 +45,17 @@ public class DBConnection {
                                 "PRIMARY KEY (id), " +
                                 "CONSTRAINT fk_company FOREIGN KEY (company_id) " +
                                 "REFERENCES company(id))";
+                        statement.executeUpdate(sql);
+                    }
+
+                    if (tableNotExist(connection, customerTableName)) {
+                        String sql = "CREATE TABLE " + customerTableName +
+                                "(id INTEGER NOT NULL AUTO_INCREMENT, " +
+                                "name VARCHAR(255) UNIQUE NOT NULL, " +
+                                "rented_car_id INTEGER DEFAULT NULL, " +
+                                "PRIMARY KEY (id), " +
+                                "CONSTRAINT fk_car FOREIGN KEY (rented_car_id) " +
+                                "REFERENCES car(id))";
                         statement.executeUpdate(sql);
                     }
 

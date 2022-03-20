@@ -6,6 +6,7 @@ public class Main {
         DBConnection dbConnection = new DBConnection(args);
         CompanyDAO companyDAO = new CompanyDAOImpl(dbConnection.getConnection());
         CarDAO carDAO = new CarDAOImpl(dbConnection.getConnection());
+        CustomerDAO customerDAO = new CustomerDAOImpl(dbConnection.getConnection());
         UserInterface ui = new UserInterface();
         Command chosenMenuItem;
 
@@ -14,7 +15,7 @@ public class Main {
             chosenMenuItem = ui.getMenuItemFromInput();
 
             switch (chosenMenuItem) {
-                case LOGIN:
+                case LOGIN_AS_MANAGER:
                 case BACK_TO_MANAGER_MENU:
                     ui.setCurrentMenu(ui.getManagerMenu());
                     break;
@@ -39,6 +40,9 @@ public class Main {
                     break;
                 case CAR_LIST:
                     ui.showCarList(carDAO.getAllCompanyCars(ui.getCurrentCompanyId()));
+                    break;
+                case CREATE_CUSTOMER:
+                    customerDAO.addCustomer(ui.getCustomerFromInput());
                     break;
                 case BACK_TO_MAIN_MENU:
                     ui.setCurrentMenu(ui.getMainMenu());
