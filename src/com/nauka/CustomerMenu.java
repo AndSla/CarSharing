@@ -12,9 +12,9 @@ public class CustomerMenu extends Menu{
 
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
-        commands.put(1, Command.CAR_LIST);
-        commands.put(2, Command.CREATE_CAR);
-        commands.put(3, Command.CREATE_CAR);
+        commands.put(1, Command.RENT_CAR);
+        commands.put(2, Command.RETURN_CAR);
+        commands.put(3, Command.RENTED_CARS);
         commands.put(0, Command.BACK_TO_MAIN_MENU);
         return commands;
     }
