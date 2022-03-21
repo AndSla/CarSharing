@@ -1,4 +1,4 @@
-package com.nauka;
+package com.nauka.dao;
 
 public class Customer {
     private int id;

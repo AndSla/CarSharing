@@ -1,4 +1,4 @@
-package com.nauka;
+package com.nauka.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

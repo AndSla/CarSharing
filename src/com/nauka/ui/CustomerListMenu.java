@@ -1,4 +1,6 @@
-package com.nauka;
+package com.nauka.ui;
+
+import com.nauka.dao.Customer;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -6,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CustomerListMenu extends Menu{
+public class CustomerListMenu extends Menu {
     private List<Customer> customers;
 
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
-        commands.put(0, Command.BACK_TO_MAIN_MENU);
+        commands.put(0, Command.MAIN_MENU);
         for (int i = 0; i < customers.size(); i++) {
             commands.put(i + 1, Command.CUSTOMER_MENU);
         }

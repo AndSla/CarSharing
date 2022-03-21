@@ -1,0 +1,18 @@
+package com.nauka.ui;
+
+public enum Command {
+    MAIN_MENU,
+    MANAGER_MENU,
+    COMPANY_LIST_MENU,
+    COMPANY_MENU,
+    COMPANY_CREATE,
+    CUSTOMER_LIST_MENU,
+    CUSTOMER_MENU,
+    CUSTOMER_CREATE,
+    CAR_LIST_MENU,
+    CAR_CREATE,
+    CAR_RENT,
+    CAR_RETURN,
+    CAR_RENTED,
+    EXIT
+}

@@ -1,5 +1,9 @@
 package com.nauka;
 
+import com.nauka.dao.*;
+import com.nauka.ui.Command;
+import com.nauka.ui.UserInterface;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,11 +19,10 @@ public class Main {
             chosenMenuItem = ui.getMenuItemFromInput();
 
             switch (chosenMenuItem) {
-                case LOGIN_AS_MANAGER:
-                case BACK_TO_MANAGER_MENU:
+                case MANAGER_MENU:
                     ui.setCurrentMenu(ui.getManagerMenu());
                     break;
-                case LOGIN_AS_CUSTOMER:
+                case CUSTOMER_LIST_MENU:
                     ui.setCustomerList(customerDAO.getAllCustomers());
                     ui.setCurrentMenu(ui.getCustomerListMenu());
                     break;
@@ -31,11 +34,11 @@ public class Main {
                         ui.setCurrentMenu(ui.getCustomerListMenu());
                     }
                     break;
-                case COMPANY_LIST:
+                case COMPANY_LIST_MENU:
                     ui.setCompanyList(companyDAO.getAllCompanies());
                     ui.setCurrentMenu(ui.getCompanyListMenu());
                     break;
-                case CREATE_COMPANY:
+                case COMPANY_CREATE:
                     companyDAO.addCompany(ui.getCompanyFromInput());
                     break;
                 case COMPANY_MENU:
@@ -47,16 +50,16 @@ public class Main {
                         ui.setCurrentMenu(ui.getCompanyListMenu());
                     }
                     break;
-                case CREATE_CAR:
+                case CAR_CREATE:
                     carDAO.addCar(ui.getCarFromInput());
                     break;
-                case CAR_LIST:
+                case CAR_LIST_MENU:
                     ui.showCarList(carDAO.getAllCompanyCars(ui.getCurrentCompanyId()));
                     break;
-                case CREATE_CUSTOMER:
+                case CUSTOMER_CREATE:
                     customerDAO.addCustomer(ui.getCustomerFromInput());
                     break;
-                case BACK_TO_MAIN_MENU:
+                case MAIN_MENU:
                     ui.setCurrentMenu(ui.getMainMenu());
                     break;
                 case EXIT:

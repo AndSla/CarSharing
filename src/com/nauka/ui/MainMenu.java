@@ -1,4 +1,4 @@
-package com.nauka;
+package com.nauka.ui;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +12,9 @@ public class MainMenu extends Menu {
 
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
-        commands.put(1, Command.LOGIN_AS_MANAGER);
-        commands.put(2, Command.LOGIN_AS_CUSTOMER);
-        commands.put(3, Command.CREATE_CUSTOMER);
+        commands.put(1, Command.MANAGER_MENU);
+        commands.put(2, Command.CUSTOMER_LIST_MENU);
+        commands.put(3, Command.CUSTOMER_CREATE);
         commands.put(0, Command.EXIT);
         return commands;
     }

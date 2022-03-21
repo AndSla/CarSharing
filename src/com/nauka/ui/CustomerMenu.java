@@ -1,9 +1,9 @@
-package com.nauka;
+package com.nauka.ui;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerMenu extends Menu{
+public class CustomerMenu extends Menu {
 
     public CustomerMenu() {
         setMaxMenuItemNumber(3);
@@ -12,10 +12,10 @@ public class CustomerMenu extends Menu{
 
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
-        commands.put(1, Command.RENT_CAR);
-        commands.put(2, Command.RETURN_CAR);
-        commands.put(3, Command.RENTED_CARS);
-        commands.put(0, Command.BACK_TO_MAIN_MENU);
+        commands.put(1, Command.CAR_RENT);
+        commands.put(2, Command.CAR_RETURN);
+        commands.put(3, Command.CAR_RENTED);
+        commands.put(0, Command.MAIN_MENU);
         return commands;
     }
 

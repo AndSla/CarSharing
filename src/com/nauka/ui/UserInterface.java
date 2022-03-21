@@ -1,4 +1,8 @@
-package com.nauka;
+package com.nauka.ui;
+
+import com.nauka.dao.Car;
+import com.nauka.dao.Company;
+import com.nauka.dao.Customer;
 
 import java.util.Comparator;
 import java.util.List;
@@ -19,20 +23,20 @@ public class UserInterface {
     private int currentCustomerId;
     private boolean running = true;
 
-    void showMenu() {
+    public void showMenu() {
         currentMenu.showMenu();
     }
 
-    Command getMenuItemFromInput() {
+    public Command getMenuItemFromInput() {
         while (true) {
 
             if (currentMenu instanceof CompanyListMenu) {
                 CompanyListMenu clm = (CompanyListMenu) currentMenu;
-                if (clm.getCompanies().isEmpty()) return Command.BACK_TO_MANAGER_MENU;
+                if (clm.getCompanies().isEmpty()) return Command.MANAGER_MENU;
             }
             if (currentMenu instanceof CustomerListMenu) {
                 CustomerListMenu clm = (CustomerListMenu) currentMenu;
-                if (clm.getCustomers().isEmpty()) return Command.BACK_TO_MAIN_MENU;
+                if (clm.getCustomers().isEmpty()) return Command.MAIN_MENU;
             }
 
             String chosenNumber = sc.nextLine();
@@ -59,7 +63,7 @@ public class UserInterface {
         }
     }
 
-    Company getCompanyFromInput() {
+    public Company getCompanyFromInput() {
         System.out.println("Enter the company name:");
         System.out.print("> ");
 
@@ -76,7 +80,7 @@ public class UserInterface {
 
     }
 
-    Car getCarFromInput() {
+    public Car getCarFromInput() {
         System.out.println("Enter the car name:");
         System.out.print("> ");
 
@@ -94,7 +98,7 @@ public class UserInterface {
 
     }
 
-    Customer getCustomerFromInput() {
+    public Customer getCustomerFromInput() {
         System.out.println("Enter the customer name:");
         System.out.print("> ");
 
@@ -110,7 +114,7 @@ public class UserInterface {
         }
     }
 
-    void showCarList(List<Car> cars) {
+    public void showCarList(List<Car> cars) {
         Comparator<Car> byId = Comparator.comparingInt(Car::getId);
 
         if (!cars.isEmpty()) {
@@ -127,7 +131,7 @@ public class UserInterface {
 
     }
 
-    void exit() {
+    public void exit() {
         setRunning(false);
         System.out.println("Bye!");
     }
