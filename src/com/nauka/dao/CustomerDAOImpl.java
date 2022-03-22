@@ -89,13 +89,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void rentACar(int customerId, int carId) {
+    public void rentACar(Customer customer, Car car) {
         try (Statement statement = dbConnection.createStatement()) {
             String sql = "UPDATE customer " +
-                    "SET rented_car_id=" + carId + " " +
-                    "WHERE id=" + customerId + ";";
+                    "SET rented_car_id=" + car.getId() + " " +
+                    "WHERE id=" + customer.getId() + ";";
             statement.execute(sql);
-            System.out.println("You rented 'Hyundai Venue'" + "\n");
+            System.out.println("You rented '" + car.getName() + "'" + "\n");
         } catch (Exception e) {
             e.printStackTrace();
         }

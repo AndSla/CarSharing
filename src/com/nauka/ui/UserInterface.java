@@ -20,9 +20,9 @@ public class UserInterface {
     private final Menu companyMenu = new CompanyMenu();
     private final Menu customerMenu = new CustomerMenu();
     private Menu currentMenu = mainMenu;
-    private int currentCompanyId;
-    private int currentCustomerId;
-    private int currentCarId;
+    private Company currentCompany;
+    private Customer currentCustomer;
+    private Car currentCar;
     private boolean running = true;
 
     public void showMenu() {
@@ -47,15 +47,15 @@ public class UserInterface {
                     Object item = ((ListMenu<?>) currentMenu).getItems().get(listIndex);
 
                     if (item instanceof Company) {
-                        currentCompanyId = ((Company) item).getId();
+                        currentCompany = ((Company) item);
                     }
 
                     if (item instanceof Customer) {
-                        currentCustomerId = ((Customer) item).getId();
+                        currentCustomer = ((Customer) item);
                     }
 
                     if (item instanceof Car) {
-                        currentCarId = ((Car) item).getId();
+                        currentCar = ((Car) item);
                     }
 
                 }
@@ -94,7 +94,7 @@ public class UserInterface {
             if (name.matches(".+")) {
                 Car car = new Car();
                 car.setName(name);
-                car.setCompanyId(currentCompanyId);
+                car.setCompanyId(currentCompany.getId());
                 return car;
             } else {
                 System.out.print("> ");
@@ -173,16 +173,16 @@ public class UserInterface {
         return carListMenu;
     }
 
-    public int getCurrentCompanyId() {
-        return currentCompanyId;
+    public Company getCurrentCompany() {
+        return currentCompany;
     }
 
-    public int getCurrentCustomerId() {
-        return currentCustomerId;
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
     }
 
-    public int getCurrentCarId() {
-        return currentCarId;
+    public Car getCurrentCar() {
+        return currentCar;
     }
 
     public void setCompanyList(List<Company> companies) {

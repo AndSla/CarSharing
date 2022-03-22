@@ -27,7 +27,7 @@ public class Main {
                     ui.setCurrentMenu(ui.getCustomerListMenu());
                     break;
                 case CUSTOMER_MENU:
-                    Customer customer = customerDAO.getCustomerById(ui.getCurrentCustomerId());
+                    Customer customer = customerDAO.getCustomerById(ui.getCurrentCustomer().getId());
                     if (customer != null) {
                         ui.setCurrentMenu(ui.getCustomerMenu());
                     } else {
@@ -43,7 +43,7 @@ public class Main {
                     companyDAO.addCompany(ui.getCompanyFromInput());
                     break;
                 case COMPANY_MENU:
-                    Company company = companyDAO.getCompanyById(ui.getCurrentCompanyId());
+                    Company company = companyDAO.getCompanyById(ui.getCurrentCompany().getId());
                     if (company != null) {
                         ui.setCurrentCompany(company);
                         ui.setCurrentMenu(ui.getCompanyMenu());
@@ -55,10 +55,10 @@ public class Main {
                     carDAO.addCar(ui.getCarFromInput());
                     break;
                 case CAR_LIST:
-                    ui.showCarList(carDAO.getAllCompanyCars(ui.getCurrentCompanyId()));
+                    ui.showCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
                     break;
                 case CAR_LIST_MENU:
-                    ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompanyId()));
+                    ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
                     ui.setCurrentMenu(ui.getCarListMenu());
                     break;
                 case CAR_RENT_CHOOSE_COMPANY:
@@ -67,7 +67,7 @@ public class Main {
                     ui.setCurrentMenu(ui.getCompanyListMenu());
                     break;
                 case CAR_RENT:
-                    customerDAO.rentACar(ui.getCurrentCustomerId(), ui.getCurrentCarId());
+                    customerDAO.rentACar(ui.getCurrentCustomer(), ui.getCurrentCar());
                     ui.setCurrentMenu(ui.getCustomerMenu());
                     break;
                 case CUSTOMER_CREATE:
