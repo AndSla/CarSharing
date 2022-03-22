@@ -14,10 +14,10 @@ public class UserInterface {
     private final Scanner sc = new Scanner(System.in);
     private final Menu mainMenu = new MainMenu();
     private final Menu managerMenu = new ManagerMenu();
+    private final ListMenu<Company> companyListMenu = new CompanyListMenu();
+    private final ListMenu<Customer> customerListMenu = new CustomerListMenu();
     private final Menu companyMenu = new CompanyMenu();
-    private final Menu companyListMenu = new CompanyListMenu();
     private final Menu customerMenu = new CustomerMenu();
-    private final Menu customerListMenu = new CustomerListMenu();
     private Menu currentMenu = mainMenu;
     private int currentCompanyId;
     private int currentCustomerId;
@@ -30,13 +30,8 @@ public class UserInterface {
     public Command getMenuItemFromInput() {
         while (true) {
 
-            if (currentMenu instanceof CompanyListMenu) {
-                CompanyListMenu clm = (CompanyListMenu) currentMenu;
-                if (clm.getCompanies().isEmpty()) return Command.MANAGER_MENU;
-            }
-            if (currentMenu instanceof CustomerListMenu) {
-                CustomerListMenu clm = (CustomerListMenu) currentMenu;
-                if (clm.getCustomers().isEmpty()) return Command.MAIN_MENU;
+            if (currentMenu instanceof ListMenu) {
+                if (((ListMenu<?>) currentMenu).getItems().isEmpty()) return currentMenu.getCommands().get(0);
             }
 
             String chosenNumber = sc.nextLine();
@@ -44,15 +39,19 @@ public class UserInterface {
 
                 System.out.println();
 
-                if (currentMenu instanceof CompanyListMenu && !chosenNumber.equals("0")) {
-                    CompanyListMenu clm = (CompanyListMenu) currentMenu;
+                if (currentMenu instanceof ListMenu && !chosenNumber.equals("0")) {
+
                     int listIndex = Integer.parseInt(chosenNumber) - 1;
-                    currentCompanyId = clm.getCompanies().get(listIndex).getId();
-                }
-                if (currentMenu instanceof CustomerListMenu && !chosenNumber.equals("0")) {
-                    CustomerListMenu clm = (CustomerListMenu) currentMenu;
-                    int listIndex = Integer.parseInt(chosenNumber) - 1;
-                    currentCustomerId = clm.getCustomers().get(listIndex).getId();
+                    Object item = ((ListMenu<?>) currentMenu).getItems().get(listIndex);
+
+                    if (item instanceof Company) {
+                        currentCompanyId = ((Company) item).getId();
+                    }
+
+                    if (item instanceof Customer) {
+                        currentCustomerId = ((Customer) item).getId();
+                    }
+
                 }
 
                 return currentMenu.getCommands().get(Integer.parseInt(chosenNumber));
@@ -173,13 +172,11 @@ public class UserInterface {
     }
 
     public void setCompanyList(List<Company> companies) {
-        CompanyListMenu companyListMenu = (CompanyListMenu) getCompanyListMenu();
-        companyListMenu.setCompanies(companies);
+        companyListMenu.setItems(companies);
     }
 
     public void setCustomerList(List<Customer> customers) {
-        CustomerListMenu customerListMenu = (CustomerListMenu) getCustomerListMenu();
-        customerListMenu.setCustomers(customers);
+        customerListMenu.setItems(customers);
     }
 
     public void setCurrentCompany(Company company) {
