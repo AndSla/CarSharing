@@ -62,9 +62,11 @@ public class Main {
                     ui.setCurrentMenu(ui.getCarListMenu());
                     break;
                 case CAR_RENT_CHOOSE_COMPANY:
-                    ui.setBackCommandInCompanyListMenu(Command.CUSTOMER_MENU, Command.CAR_LIST_MENU);
-                    ui.setCompanyList(companyDAO.getAllCompanies());
-                    ui.setCurrentMenu(ui.getCompanyListMenu());
+                    if (!customerDAO.hasRentedCar(ui.getCurrentCustomer())) {
+                        ui.setBackCommandInCompanyListMenu(Command.CUSTOMER_MENU, Command.CAR_LIST_MENU);
+                        ui.setCompanyList(companyDAO.getAllCompanies());
+                        ui.setCurrentMenu(ui.getCompanyListMenu());
+                    }
                     break;
                 case CAR_RENT:
                     customerDAO.rentACar(ui.getCurrentCustomer(), ui.getCurrentCar());

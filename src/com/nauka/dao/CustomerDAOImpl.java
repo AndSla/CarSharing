@@ -101,4 +101,24 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
     }
 
+    @Override
+    public boolean hasRentedCar(Customer customer) {
+        try (Statement statement = dbConnection.createStatement()) {
+            String sql = "SELECT rented_car_id FROM customer " +
+                    "WHERE id=" + customer.getId() + ";";
+            statement.execute(sql);
+            ResultSet result = statement.getResultSet();
+
+            if (result.next()) {
+                if (result.getString("rented_car_id") != null) {
+                    System.out.println("You've already rented a car!" + "\n");
+                    return true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
