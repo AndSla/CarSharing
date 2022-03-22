@@ -1,6 +1,7 @@
 package com.nauka.ui;
 
 import com.nauka.dao.Car;
+import com.nauka.dao.Company;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -8,6 +9,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CarListMenu extends ListMenu<Car> {
+
+    private Company company;
 
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
@@ -34,9 +37,13 @@ public class CarListMenu extends ListMenu<Car> {
             System.out.println("0. Back");
             System.out.print("> ");
         } else {
-            System.out.println("The car list is empty!");
+            System.out.println("No available cars in the '" + company.getName() + "' company");
             System.out.println();
         }
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
 }

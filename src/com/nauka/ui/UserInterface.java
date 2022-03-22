@@ -207,6 +207,11 @@ public class UserInterface {
         companyListMenu.setBackAndActionCommand(backCommand, actionCommand);
     }
 
+    public void setCompanyInCarListMenu(Company company){
+        CarListMenu carListMenu = (CarListMenu) getCarListMenu();
+        carListMenu.setCompany(company);
+    }
+
     public void setRunning(boolean running) {
         this.running = running;
     }

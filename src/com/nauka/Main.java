@@ -58,6 +58,7 @@ public class Main {
                     ui.showCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
                     break;
                 case CAR_LIST_MENU:
+                    ui.setCompanyInCarListMenu(ui.getCurrentCompany());
                     ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
                     ui.setCurrentMenu(ui.getCarListMenu());
                     break;
