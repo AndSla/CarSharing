@@ -10,4 +10,6 @@ public interface CustomerDAO {
 
     Customer getCustomerById(int id);
 
+    void rentACar(int customerId, int carId);
+
 }

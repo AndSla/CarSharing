@@ -16,11 +16,13 @@ public class UserInterface {
     private final Menu managerMenu = new ManagerMenu();
     private final ListMenu<Company> companyListMenu = new CompanyListMenu();
     private final ListMenu<Customer> customerListMenu = new CustomerListMenu();
+    private final ListMenu<Car> carListMenu = new CarListMenu();
     private final Menu companyMenu = new CompanyMenu();
     private final Menu customerMenu = new CustomerMenu();
     private Menu currentMenu = mainMenu;
     private int currentCompanyId;
     private int currentCustomerId;
+    private int currentCarId;
     private boolean running = true;
 
     public void showMenu() {
@@ -50,6 +52,10 @@ public class UserInterface {
 
                     if (item instanceof Customer) {
                         currentCustomerId = ((Customer) item).getId();
+                    }
+
+                    if (item instanceof Car) {
+                        currentCarId = ((Car) item).getId();
                     }
 
                 }
@@ -163,12 +169,20 @@ public class UserInterface {
         return customerMenu;
     }
 
+    public ListMenu<Car> getCarListMenu() {
+        return carListMenu;
+    }
+
     public int getCurrentCompanyId() {
         return currentCompanyId;
     }
 
     public int getCurrentCustomerId() {
         return currentCustomerId;
+    }
+
+    public int getCurrentCarId() {
+        return currentCarId;
     }
 
     public void setCompanyList(List<Company> companies) {
@@ -179,9 +193,18 @@ public class UserInterface {
         customerListMenu.setItems(customers);
     }
 
+    public void setCarList(List<Car> cars) {
+        carListMenu.setItems(cars);
+    }
+
     public void setCurrentCompany(Company company) {
         CompanyMenu companyMenu = (CompanyMenu) getCompanyMenu();
         companyMenu.setCompanyName(company.getName());
+    }
+
+    public void setBackCommandInCompanyListMenu(Command backCommand, Command actionCommand) {
+        CompanyListMenu companyListMenu = (CompanyListMenu) getCompanyListMenu();
+        companyListMenu.setBackAndActionCommand(backCommand, actionCommand);
     }
 
     public void setRunning(boolean running) {

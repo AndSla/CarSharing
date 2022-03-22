@@ -35,6 +35,7 @@ public class Main {
                     }
                     break;
                 case COMPANY_LIST_MENU:
+                    ui.setBackCommandInCompanyListMenu(Command.MANAGER_MENU, Command.COMPANY_MENU);
                     ui.setCompanyList(companyDAO.getAllCompanies());
                     ui.setCurrentMenu(ui.getCompanyListMenu());
                     break;
@@ -53,8 +54,21 @@ public class Main {
                 case CAR_CREATE:
                     carDAO.addCar(ui.getCarFromInput());
                     break;
-                case CAR_LIST_MENU:
+                case CAR_LIST:
                     ui.showCarList(carDAO.getAllCompanyCars(ui.getCurrentCompanyId()));
+                    break;
+                case CAR_LIST_MENU:
+                    ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompanyId()));
+                    ui.setCurrentMenu(ui.getCarListMenu());
+                    break;
+                case CAR_RENT_CHOOSE_COMPANY:
+                    ui.setBackCommandInCompanyListMenu(Command.CUSTOMER_MENU, Command.CAR_LIST_MENU);
+                    ui.setCompanyList(companyDAO.getAllCompanies());
+                    ui.setCurrentMenu(ui.getCompanyListMenu());
+                    break;
+                case CAR_RENT:
+                    customerDAO.rentACar(ui.getCurrentCustomerId(), ui.getCurrentCarId());
+                    ui.setCurrentMenu(ui.getCustomerMenu());
                     break;
                 case CUSTOMER_CREATE:
                     customerDAO.addCustomer(ui.getCustomerFromInput());

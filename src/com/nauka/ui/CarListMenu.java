@@ -1,22 +1,19 @@
 package com.nauka.ui;
 
-import com.nauka.dao.Company;
+import com.nauka.dao.Car;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CompanyListMenu extends ListMenu<Company> {
-
-    Command backCommand;
-    Command actionCommand;
+public class CarListMenu extends ListMenu<Car> {
 
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
-        commands.put(0, backCommand);
+        commands.put(0, Command.CAR_RENT_CHOOSE_COMPANY);
         for (int i = 0; i < getItems().size(); i++) {
-            commands.put(i + 1, actionCommand);
+            commands.put(i + 1, Command.CAR_RENT);
         }
         return commands;
     }
@@ -26,10 +23,10 @@ public class CompanyListMenu extends ListMenu<Company> {
         setMaxMenuItemNumber(getItems().size());
         setCommands(mapCommands());
 
-        Comparator<Company> byId = Comparator.comparingInt(Company::getId);
+        Comparator<Car> byId = Comparator.comparingInt(Car::getId);
 
         if (!getItems().isEmpty()) {
-            System.out.println("Choose a company:");
+            System.out.println("Choose a car:");
             setItems(getItems().stream().sorted(byId).collect(Collectors.toList()));
             for (int i = 0; i < getItems().size(); i++) {
                 System.out.println(i + 1 + ". " + getItems().get(i));
@@ -37,14 +34,11 @@ public class CompanyListMenu extends ListMenu<Company> {
             System.out.println("0. Back");
             System.out.print("> ");
         } else {
-            System.out.println("The company list is empty!");
+            System.out.println("The car list is empty!");
             System.out.println();
         }
     }
 
-    public void setBackAndActionCommand(Command backCommand, Command actionCommand) {
-        this.backCommand = backCommand;
-        this.actionCommand = actionCommand;
-    }
-
 }
+
+
