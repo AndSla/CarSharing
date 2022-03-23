@@ -73,6 +73,8 @@ public class Main {
                     customerDAO.rentACar(ui.getCurrentCustomer(), ui.getCurrentCar());
                     ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
                     ui.setCurrentMenu(ui.getCustomerMenu());
+                    customer = customerDAO.getCustomerById(ui.getCurrentCustomer().getId());
+                    ui.updateCurrentCustomer(customer);
                     break;
                 case CAR_RETURN:
                     customerDAO.returnCar(ui.getCurrentCustomer());
@@ -82,7 +84,12 @@ public class Main {
                 case CAR_RENTED:
                     Integer rentedCarId = ui.getCurrentCustomer().getRentedCarId();
                     if (rentedCarId != null) {
-                        carDAO.getCarById(rentedCarId);
+                        Car car = carDAO.getCarById(rentedCarId);
+                        System.out.println("Your rented car:");
+                        System.out.println(car.getName());
+                        company = companyDAO.getCompanyById(car.getCompanyId());
+                        System.out.println("Company:");
+                        System.out.println(company.getName() + "\n");
                     } else {
                         System.out.println("You didn't rent a car!\n");
                     }

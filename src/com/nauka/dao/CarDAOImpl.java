@@ -64,7 +64,6 @@ public class CarDAOImpl implements CarDAO {
                 car.setName(result.getString("name"));
                 car.setCompanyId(Integer.parseInt(result.getString("company_id")));
                 car.setRented(Boolean.parseBoolean(result.getString("is_rented")));
-                System.out.println("You rented '" + car.getName() + "'\n");
                 return car;
             }
 
