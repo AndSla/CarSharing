@@ -40,6 +40,7 @@ public class CarDAOImpl implements CarDAO {
                 car.setId(Integer.parseInt(result.getString("id")));
                 car.setName(result.getString("name"));
                 car.setCompanyId(Integer.parseInt(result.getString("company_id")));
+                car.setRented(Boolean.parseBoolean(result.getString("is_rented")));
                 cars.add(car);
             }
 

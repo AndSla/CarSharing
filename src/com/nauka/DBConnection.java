@@ -42,6 +42,7 @@ public class DBConnection {
                                 "(id INTEGER NOT NULL AUTO_INCREMENT, " +
                                 "name VARCHAR(255) UNIQUE NOT NULL, " +
                                 "company_id INTEGER NOT NULL, " +
+                                "is_rented BOOLEAN DEFAULT FALSE, " +
                                 "PRIMARY KEY (id), " +
                                 "CONSTRAINT fk_company FOREIGN KEY (company_id) " +
                                 "REFERENCES company(id))";

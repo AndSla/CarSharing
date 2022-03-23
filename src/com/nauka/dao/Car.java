@@ -4,6 +4,7 @@ public class Car {
     private int id;
     private String name;
     private int companyId;
+    private boolean isRented;
 
     public Car() {
     }
@@ -30,6 +31,14 @@ public class Car {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void setRented(boolean rented) {
+        isRented = rented;
     }
 
     @Override

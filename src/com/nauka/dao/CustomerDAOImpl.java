@@ -95,6 +95,10 @@ public class CustomerDAOImpl implements CustomerDAO {
                     "SET rented_car_id=" + car.getId() + " " +
                     "WHERE id=" + customer.getId() + ";";
             statement.execute(sql);
+            sql = "UPDATE car " +
+                    "SET is_rented=TRUE " +
+                    "WHERE id=" + car.getId() + ";";
+            statement.execute(sql);
             System.out.println("You rented '" + car.getName() + "'" + "\n");
         } catch (Exception e) {
             e.printStackTrace();

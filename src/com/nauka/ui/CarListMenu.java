@@ -3,9 +3,7 @@ package com.nauka.ui;
 import com.nauka.dao.Car;
 import com.nauka.dao.Company;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CarListMenu extends ListMenu<Car> {
@@ -23,16 +21,23 @@ public class CarListMenu extends ListMenu<Car> {
 
     @Override
     void showMenu() {
-        setMaxMenuItemNumber(getItems().size());
+
+        List<Car> availableCars = new ArrayList<>();
+
+        for (Car item : getItems()) {
+            if (!item.isRented()) availableCars.add(item);
+        }
+
+        setMaxMenuItemNumber(availableCars.size());
         setCommands(mapCommands());
 
         Comparator<Car> byId = Comparator.comparingInt(Car::getId);
 
-        if (!getItems().isEmpty()) {
+        if (!availableCars.isEmpty()) {
             System.out.println("Choose a car:");
-            setItems(getItems().stream().sorted(byId).collect(Collectors.toList()));
-            for (int i = 0; i < getItems().size(); i++) {
-                System.out.println(i + 1 + ". " + getItems().get(i));
+            availableCars = availableCars.stream().sorted(byId).collect(Collectors.toList());
+            for (int i = 0; i < availableCars.size(); i++) {
+                System.out.println(i + 1 + ". " + availableCars.get(i));
             }
             System.out.println("0. Back");
             System.out.print("> ");
