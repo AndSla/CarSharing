@@ -34,7 +34,7 @@ public class CustomerListMenu extends ListMenu<Customer> {
             System.out.println("0. Back");
             System.out.print("> ");
         } else {
-            System.out.println("The customers list is empty!");
+            System.out.println("The customer list is empty!");
             System.out.println();
         }
     }
