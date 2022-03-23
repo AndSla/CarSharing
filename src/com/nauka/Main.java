@@ -75,7 +75,18 @@ public class Main {
                     ui.setCurrentMenu(ui.getCustomerMenu());
                     break;
                 case CAR_RETURN:
-
+                    customerDAO.returnCar(ui.getCurrentCustomer());
+                    customer = customerDAO.getCustomerById(ui.getCurrentCustomer().getId());
+                    ui.updateCurrentCustomer(customer);
+                    break;
+                case CAR_RENTED:
+                    Integer rentedCarId = ui.getCurrentCustomer().getRentedCarId();
+                    if (rentedCarId != null) {
+                        carDAO.getCarById(rentedCarId);
+                    } else {
+                        System.out.println("You didn't rent a car!\n");
+                    }
+                    break;
                 case CUSTOMER_CREATE:
                     customerDAO.addCustomer(ui.getCustomerFromInput());
                     break;

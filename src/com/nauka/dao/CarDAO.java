@@ -8,4 +8,6 @@ public interface CarDAO {
 
     List<Car> getAllCompanyCars(int companyId);
 
+    Car getCarById(int id);
+
 }

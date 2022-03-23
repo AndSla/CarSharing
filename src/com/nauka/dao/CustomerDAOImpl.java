@@ -114,10 +114,10 @@ public class CustomerDAOImpl implements CustomerDAO {
                     "WHERE id=" + customer.getId();
             statement.execute(sql);
             ResultSet result = statement.getResultSet();
-            if (result.next()) {
+            if (result.next() && result.getString("rented_car_id") != null) {
                 rentedCarId = Integer.parseInt(result.getString("rented_car_id"));
             } else {
-                System.out.println("You didn't rent a car!");
+                System.out.println("You didn't rent a car!" + "\n");
                 return;
             }
 

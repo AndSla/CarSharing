@@ -51,4 +51,26 @@ public class CarDAOImpl implements CarDAO {
         return cars;
     }
 
+    @Override
+    public Car getCarById(int id) {
+        try (Statement statement = dbConnection.createStatement()) {
+            String sql = "SELECT * FROM car WHERE id=" + id + ";";
+            statement.execute(sql);
+            ResultSet result = statement.getResultSet();
+
+            if (result.next()) {
+                Car car = new Car();
+                car.setId(Integer.parseInt(result.getString("id")));
+                car.setName(result.getString("name"));
+                car.setCompanyId(Integer.parseInt(result.getString("company_id")));
+                car.setRented(Boolean.parseBoolean(result.getString("is_rented")));
+                System.out.println("You rented '" + car.getName() + "'\n");
+                return car;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

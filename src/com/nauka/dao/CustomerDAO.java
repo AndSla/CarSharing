@@ -15,5 +15,4 @@ public interface CustomerDAO {
     boolean hasRentedCar(Customer customer);
 
     void returnCar(Customer customer);
-
 }

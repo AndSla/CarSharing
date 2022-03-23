@@ -202,6 +202,10 @@ public class UserInterface {
         companyMenu.setCompanyName(company.getName());
     }
 
+    public void updateCurrentCustomer(Customer currentCustomer) {
+        this.currentCustomer = currentCustomer;
+    }
+
     public void setBackCommandInCompanyListMenu(Command backCommand, Command actionCommand) {
         CompanyListMenu companyListMenu = (CompanyListMenu) getCompanyListMenu();
         companyListMenu.setBackAndActionCommand(backCommand, actionCommand);
