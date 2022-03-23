@@ -28,16 +28,18 @@ public class CarListMenu extends ListMenu<Car> {
             if (!item.isRented()) availableCars.add(item);
         }
 
-        setMaxMenuItemNumber(availableCars.size());
+        setItems(availableCars);
+
+        setMaxMenuItemNumber(getItems().size());
         setCommands(mapCommands());
 
         Comparator<Car> byId = Comparator.comparingInt(Car::getId);
 
-        if (!availableCars.isEmpty()) {
+        if (!getItems().isEmpty()) {
             System.out.println("Choose a car:");
-            availableCars = availableCars.stream().sorted(byId).collect(Collectors.toList());
-            for (int i = 0; i < availableCars.size(); i++) {
-                System.out.println(i + 1 + ". " + availableCars.get(i));
+            setItems(getItems().stream().sorted(byId).collect(Collectors.toList()));
+            for (int i = 0; i < getItems().size(); i++) {
+                System.out.println(i + 1 + ". " + getItems().get(i));
             }
             System.out.println("0. Back");
             System.out.print("> ");

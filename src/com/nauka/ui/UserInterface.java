@@ -48,17 +48,14 @@ public class UserInterface {
 
                     if (item instanceof Company) {
                         currentCompany = ((Company) item);
-                        System.out.println("boooooooooooooooooooooooooooooooooooooooom"+((Company) item).getName());
                     }
 
                     if (item instanceof Customer) {
                         currentCustomer = ((Customer) item);
-                        System.out.println("boooooooooooooooooooooooooooooooooooooooom"+((Customer) item).getName());
                     }
 
                     if (item instanceof Car) {
                         currentCar = ((Car) item);
-                        System.out.println("boooooooooooooooooooooooooooooooooooooooom"+((Car) item).getName());
                     }
 
                 }
