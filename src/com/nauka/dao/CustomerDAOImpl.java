@@ -106,6 +106,37 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
+    public void returnCar(Customer customer) {
+        int rentedCarId;
+        try (Statement statement = dbConnection.createStatement()) {
+            String sql = "SELECT rented_car_id " +
+                    "FROM customer " +
+                    "WHERE id=" + customer.getId();
+            statement.execute(sql);
+            ResultSet result = statement.getResultSet();
+            if (result.next()) {
+                rentedCarId = Integer.parseInt(result.getString("rented_car_id"));
+            } else {
+                System.out.println("You didn't rent a car!");
+                return;
+            }
+
+            sql = "UPDATE customer " +
+                    "SET rented_car_id=NULL " +
+                    "WHERE id=" + customer.getId() + ";";
+            statement.execute(sql);
+
+            sql = "UPDATE car " +
+                    "SET is_rented=FALSE " +
+                    "WHERE id=" + rentedCarId + ";";
+            statement.execute(sql);
+            System.out.println("You've returned a rented car!" + "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public boolean hasRentedCar(Customer customer) {
         try (Statement statement = dbConnection.createStatement()) {
             String sql = "SELECT rented_car_id FROM customer " +

@@ -74,6 +74,8 @@ public class Main {
                     ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
                     ui.setCurrentMenu(ui.getCustomerMenu());
                     break;
+                case CAR_RETURN:
+
                 case CUSTOMER_CREATE:
                     customerDAO.addCustomer(ui.getCustomerFromInput());
                     break;
