@@ -10,4 +10,6 @@ public interface CarDAO {
 
     Car getCarById(int id);
 
+    Car getRentedCar(Integer id);
+
 }

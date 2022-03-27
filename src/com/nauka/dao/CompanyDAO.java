@@ -10,4 +10,6 @@ public interface CompanyDAO {
 
     Company getCompanyById(int id);
 
+    void showCompanyOfRentedCar(int id);
+
 }

@@ -74,4 +74,10 @@ public class CompanyDAOImpl implements CompanyDAO {
         return null;
     }
 
+    @Override
+    public void showCompanyOfRentedCar(int id) {
+        Company company = getCompanyById(id);
+        System.out.println("Company:");
+        System.out.println(company.getName() + "\n");
+    }
 }

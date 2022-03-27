@@ -72,4 +72,18 @@ public class CarDAOImpl implements CarDAO {
         }
         return null;
     }
+
+    @Override
+    public Car getRentedCar(Integer id) {
+        if (id != null) {
+            Car car = getCarById(id);
+            System.out.println("Your rented car:");
+            System.out.println(car.getName());
+            return car;
+        } else {
+            System.out.println("You didn't rent a car!\n");
+        }
+        return null;
+    }
+
 }

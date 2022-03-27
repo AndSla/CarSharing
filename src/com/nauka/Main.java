@@ -77,16 +77,8 @@ public class Main {
                     break;
                 case CAR_RENTED:
                     Integer rentedCarId = ui.getCurrentCustomer().getRentedCarId();
-                    if (rentedCarId != null) {
-                        Car car = carDAO.getCarById(rentedCarId);
-                        System.out.println("Your rented car:");
-                        System.out.println(car.getName());
-                        Company company = companyDAO.getCompanyById(car.getCompanyId());
-                        System.out.println("Company:");
-                        System.out.println(company.getName() + "\n");
-                    } else {
-                        System.out.println("You didn't rent a car!\n");
-                    }
+                    Car car = carDAO.getRentedCar(rentedCarId);
+                    if (car != null) companyDAO.showCompanyOfRentedCar(car.getCompanyId());
                     break;
                 case EXIT:
                     ui.exit();
