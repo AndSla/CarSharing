@@ -48,7 +48,7 @@ public class UserInterface {
 
                     if (item instanceof Company) {
                         currentCompany = ((Company) item);
-                        setCurrentCompany(currentCompany);
+                        setCurrentCompanyNameInCompanyMenu(currentCompany);
                     }
 
                     if (item instanceof Customer) {
@@ -198,7 +198,7 @@ public class UserInterface {
         carListMenu.setItems(cars);
     }
 
-    public void setCurrentCompany(Company company) {
+    public void setCurrentCompanyNameInCompanyMenu(Company company) {
         CompanyMenu companyMenu = (CompanyMenu) getCompanyMenu();
         companyMenu.setCompanyName(company.getName());
     }

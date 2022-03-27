@@ -12,8 +12,8 @@ public class ManagerMenu extends Menu {
 
     private Map<Integer, Command> mapCommands() {
         Map<Integer, Command> commands = new HashMap<>();
-        commands.put(1, Command.COMPANY_LIST_MENU);
-        commands.put(2, Command.COMPANY_CREATE);
+        commands.put(1, Command.MANAGER_COMPANY_LIST_MENU);
+        commands.put(2, Command.MANAGER_COMPANY_CREATE);
         commands.put(0, Command.MAIN_MENU);
         return commands;
     }
