@@ -66,10 +66,9 @@ public class Main {
                     break;
                 case CAR_RENT:
                     customerDAO.rentACar(ui.getCurrentCustomer(), ui.getCurrentCar());
-                    ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
-                    ui.setCurrentMenu(ui.getCustomerMenu());
                     Customer customer = customerDAO.getCustomerById(ui.getCurrentCustomer().getId());
                     ui.updateCurrentCustomer(customer);
+                    ui.setCurrentMenu(ui.getCustomerMenu());
                     break;
                 case CAR_RETURN:
                     customerDAO.returnCar(ui.getCurrentCustomer());
