@@ -27,12 +27,7 @@ public class Main {
                     ui.setCurrentMenu(ui.getCustomerListMenu());
                     break;
                 case CUSTOMER_MENU:
-                    Customer customer = customerDAO.getCustomerById(ui.getCurrentCustomer().getId());
-                    if (customer != null) {
-                        ui.setCurrentMenu(ui.getCustomerMenu());
-                    } else {
-                        ui.setCurrentMenu(ui.getCustomerListMenu());
-                    }
+                    ui.setCurrentMenu(ui.getCustomerMenu());
                     break;
                 case COMPANY_LIST_MENU:
                     ui.setBackCommandInCompanyListMenu(Command.MANAGER_MENU, Command.COMPANY_MENU);
@@ -73,7 +68,7 @@ public class Main {
                     customerDAO.rentACar(ui.getCurrentCustomer(), ui.getCurrentCar());
                     ui.setCarList(carDAO.getAllCompanyCars(ui.getCurrentCompany().getId()));
                     ui.setCurrentMenu(ui.getCustomerMenu());
-                    customer = customerDAO.getCustomerById(ui.getCurrentCustomer().getId());
+                    Customer customer = customerDAO.getCustomerById(ui.getCurrentCustomer().getId());
                     ui.updateCurrentCustomer(customer);
                     break;
                 case CAR_RETURN:
