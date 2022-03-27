@@ -48,6 +48,7 @@ public class UserInterface {
 
                     if (item instanceof Company) {
                         currentCompany = ((Company) item);
+                        setCurrentCompany(currentCompany);
                     }
 
                     if (item instanceof Customer) {
@@ -206,7 +207,7 @@ public class UserInterface {
         this.currentCustomer = currentCustomer;
     }
 
-    public void setBackCommandInCompanyListMenu(Command backCommand, Command actionCommand) {
+    public void setBackAndActionCommandInCompanyListMenu(Command backCommand, Command actionCommand) {
         CompanyListMenu companyListMenu = (CompanyListMenu) getCompanyListMenu();
         companyListMenu.setBackAndActionCommand(backCommand, actionCommand);
     }

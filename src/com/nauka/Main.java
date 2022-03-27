@@ -19,8 +19,22 @@ public class Main {
             chosenMenuItem = ui.getMenuItemFromInput();
 
             switch (chosenMenuItem) {
+                case MAIN_MENU:
+                    ui.setCurrentMenu(ui.getMainMenu());
+                    break;
                 case MANAGER_MENU:
                     ui.setCurrentMenu(ui.getManagerMenu());
+                    break;
+                case COMPANY_LIST_MENU:
+                    ui.setBackAndActionCommandInCompanyListMenu(Command.MANAGER_MENU, Command.COMPANY_MENU);
+                    ui.setCompanyList(companyDAO.getAllCompanies());
+                    ui.setCurrentMenu(ui.getCompanyListMenu());
+                    break;
+                case COMPANY_MENU:
+                    ui.setCurrentMenu(ui.getCompanyMenu());
+                    break;
+                case COMPANY_CREATE:
+                    companyDAO.addCompany(ui.getCompanyFromInput());
                     break;
                 case CUSTOMER_LIST_MENU:
                     ui.setCustomerList(customerDAO.getAllCustomers());
@@ -29,22 +43,8 @@ public class Main {
                 case CUSTOMER_MENU:
                     ui.setCurrentMenu(ui.getCustomerMenu());
                     break;
-                case COMPANY_LIST_MENU:
-                    ui.setBackCommandInCompanyListMenu(Command.MANAGER_MENU, Command.COMPANY_MENU);
-                    ui.setCompanyList(companyDAO.getAllCompanies());
-                    ui.setCurrentMenu(ui.getCompanyListMenu());
-                    break;
-                case COMPANY_CREATE:
-                    companyDAO.addCompany(ui.getCompanyFromInput());
-                    break;
-                case COMPANY_MENU:
-                    Company company = companyDAO.getCompanyById(ui.getCurrentCompany().getId());
-                    if (company != null) {
-                        ui.setCurrentCompany(company);
-                        ui.setCurrentMenu(ui.getCompanyMenu());
-                    } else {
-                        ui.setCurrentMenu(ui.getCompanyListMenu());
-                    }
+                case CUSTOMER_CREATE:
+                    customerDAO.addCustomer(ui.getCustomerFromInput());
                     break;
                 case CAR_CREATE:
                     carDAO.addCar(ui.getCarFromInput());
@@ -59,7 +59,7 @@ public class Main {
                     break;
                 case CAR_RENT_CHOOSE_COMPANY:
                     if (!customerDAO.hasRentedCar(ui.getCurrentCustomer())) {
-                        ui.setBackCommandInCompanyListMenu(Command.CUSTOMER_MENU, Command.CAR_LIST_MENU);
+                        ui.setBackAndActionCommandInCompanyListMenu(Command.CUSTOMER_MENU, Command.CAR_LIST_MENU);
                         ui.setCompanyList(companyDAO.getAllCompanies());
                         ui.setCurrentMenu(ui.getCompanyListMenu());
                     }
@@ -82,18 +82,12 @@ public class Main {
                         Car car = carDAO.getCarById(rentedCarId);
                         System.out.println("Your rented car:");
                         System.out.println(car.getName());
-                        company = companyDAO.getCompanyById(car.getCompanyId());
+                        Company company = companyDAO.getCompanyById(car.getCompanyId());
                         System.out.println("Company:");
                         System.out.println(company.getName() + "\n");
                     } else {
                         System.out.println("You didn't rent a car!\n");
                     }
-                    break;
-                case CUSTOMER_CREATE:
-                    customerDAO.addCustomer(ui.getCustomerFromInput());
-                    break;
-                case MAIN_MENU:
-                    ui.setCurrentMenu(ui.getMainMenu());
                     break;
                 case EXIT:
                     ui.exit();
